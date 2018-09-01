@@ -8,9 +8,9 @@ router.post('/', function (req, res, next) {
     console.log("create Employee", req.body)
     var sqlQuery
     if (req.body.createUpdate == "1")
-        sqlQuery = 'CALL UpdateEmployee("' + req.body.employee_id + '","' + req.body.empName + '","' + req.body.aadarNumber + '","' + req.body.empType + '","c:/asdd/","' + req.body.address + '","' + req.body.insuranceNumber + '","42342545","1")';
+        sqlQuery = 'CALL UpdateEmployee("' + req.body.employee_id + '","' + req.body.empName + '","' + req.body.aadarNumber + '","' + req.body.empType + '","c:/asdd/","' + req.body.address + '","' + req.body.insuranceNumber + '","' + req.body.contactno + '","1")';
     else
-        sqlQuery = 'CALL InsertEmployee("' + req.body.empName + '","' + req.body.aadarNumber + '","' + req.body.empType + '","c:/asdd/","' + req.body.address + '","' + req.body.insuranceNumber + '","42342545","1")';
+        sqlQuery = 'CALL InsertEmployee("' + req.body.empName + '","' + req.body.aadarNumber + '","' + req.body.empType + '","c:/asdd/","' + req.body.address + '","' + req.body.insuranceNumber + '","' + req.body.contactno + '","1")';
     console.log(sqlQuery)
     pool.getConnection(function (err, connection) {
         // don't forget to check error
