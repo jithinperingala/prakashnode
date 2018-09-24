@@ -2,7 +2,7 @@ var express = require('express')
   , router = express.Router()
 
 router.use('/createUpdateEmployee', require('./createEmployee'))
-router.use('/getAllEmployee', require('./searchEmployee'))
+router.use('/getEmployeeDetails', require('./searchEmployee'))
 router.use('/deleteEmployee', require('./deleteEmployee'))
 
 

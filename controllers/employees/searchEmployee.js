@@ -6,7 +6,7 @@ var express = require('express')
 // Define routes handling profile requests
 router.get('/', function (req, res, next) {
     console.log("asdsad", req.query.key)
-    let sql = 'CALL SearchEmployee("' + req.query.key + '")'
+    let sql = 'CALL GetEmployee("' + req.query.key + '")'
     pool.getConnection(function (err, connection) {
         // don't forget to check error
         connection.query(sql, function (err, rows, fields) {
