@@ -6,6 +6,7 @@ var multer = require('multer');
 var DIR
 var storage;
 var upload;
+var fs = require("fs")
 // var upload = multer({dest: DIR}).single('photo');
 
 
@@ -34,6 +35,19 @@ router.post('/', function (req, res, next) {
     }
 
 });
+router.post('/blobUpload', function (req, res, next) {
+    try {
+      
+        var base64Data = req.body.formData.replace(/^data:image\/png;base64,/, "");
+
+        fs.writeFile('./uploads/photo/' + req.body.empid, base64Data, 'base64', function (err) {
+            console.log(err);
+        });
+    }
+    catch (ex) {
+        console.log(ex)
+    }
+})
 router.post('/photoUpload', function (req, res, next) {
     try {
 
@@ -56,9 +70,9 @@ router.post('/photoUpload', function (req, res, next) {
                 console.log(err);
                 return res.status(422).send("an Error occured")
             }
-
-            path = req.file.path;
-            return res.send("Upload Completed for " + path);
+            if (req.file && req.file.path)
+                path = req.file.path;
+            return res.send({ done: "Upload Completed for " + path });
         });
     }
     catch (ex) {
@@ -86,7 +100,8 @@ router.post('/insuranceUpload', function (req, res, next) {
                 console.log(err);
                 return res.status(422).send("an Error occured")
             }
-            path = req.file.path;
+            if (req.file && req.file.path)
+                path = req.file.path;
             return res.send("Upload Completed for " + path);
         });
     }
@@ -115,7 +130,8 @@ router.post('/aadarUpload', function (req, res, next) {
                 console.log(err);
                 return res.status(422).send("an Error occured")
             }
-            path = req.file.path;
+            if (req.file && req.file.path)
+                path = req.file.path;
             return res.send("Upload Completed for " + path);
         });
     }
