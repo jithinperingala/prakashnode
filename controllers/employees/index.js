@@ -12,6 +12,8 @@ router.use('/deleteEmployeeType', require('./deleteEmployeeType'))
 
 router.use('/payment', require('./payment'))
 router.use('/paymentReport', require('./paymentReport'))
+
+router.use('/attendence', require('./attendence'))
 router.get('/', function(req, res) {
   res.render('index')
 })
