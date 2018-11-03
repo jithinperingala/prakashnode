@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
 });
 router.get('/empType', function (req, res, next) {
    // console.log("asdsad", req.query.emptype)
-    let sql = 'CALL SearchEmployee("' + req.query.emptype + '","' + req.query.key + '")'
+    let sql = 'CALL SearchEmployee("' + req.query.emptype + '","' + req.query.key + '","' + req.query.userID + '")'
     pool.getConnection(function (err, connection) {
         // don't forget to check error
         connection.query(sql, function (err, rows, fields) {
