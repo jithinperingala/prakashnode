@@ -7,8 +7,8 @@ router.post('/', function (req, res, next) {
   try{
     var sqlQuery
 
-    sqlQuery = 'CALL InsertAttendance("' + req.body.EmployeeID + '","' + req.body.date + '","' + req.body.status + '","' + req.body.SiteID + '","' + req.body.userId + '")';
-
+    sqlQuery = 'CALL InsertAttendance("' + req.body.EmployeeID + '","' + req.body.date + '",' + req.body.status + ',"' + req.body.SiteID + '","' + req.body.userId + '")';
+console.log(sqlQuery)
     pool.getConnection(function (err, connection) {
         // don't forget to check error
 
