@@ -7,8 +7,8 @@ router.post('/', function (req, res, next) {
   try{
     var sqlQuery
 
-    sqlQuery = 'CALL InsertAttendance("' + req.body.EmployeeID + '","' + req.body.date + '",' + req.body.status + ',"' + req.body.SiteID + '","' + req.body.userId + '")';
-console.log(sqlQuery)
+    sqlQuery = 'CALL InsertAttendance("' + req.body.EmployeeID + '","' + req.body.date + '",' + req.body.status + ',"' + req.body.siteId + '","' + req.body.userId + '")';
+
     pool.getConnection(function (err, connection) {
         // don't forget to check error
 
@@ -28,6 +28,7 @@ router.get('/', function (req, res, next) {
     try{
           //console.log("asdsad", req.query.key)
     let sql = 'CALL GetAttandance("' + req.query.siteid + '","' + req.query.date + '")'
+    console.log(sql)
     pool.getConnection(function (err, connection) {
         // don't forget to check error
         connection.query(sql, function (err, rows, fields) {
