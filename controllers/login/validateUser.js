@@ -7,12 +7,12 @@ pool = db.getPool();
 router.post('/', function (req, res, next) {
    console.log(req.body)
    var  sqlQuery = 'CALL GetUserLogin("' + req.body.userName + '","' + req.body.passCode + '")';
-
+   console.log('The solution is: ', sqlQuery)
     pool.getConnection(function (err, connection) {
         // don't forget to check error
            connection.query(sqlQuery, function (err, result) {
             if (err) throw err
-            // console.log('The solution is: ', result)
+             console.log('The solution is: ', result)
             connection.release()
             res.send(result)
         })

@@ -15,16 +15,18 @@ module.exports = {
         }
     },
     getconnection: function (qry, callback) {
+      
+            connection.query(qry, function (err, rows, fields) {
+                if (err) throw err
+                callback(rows)
 
-        connection.query(qry, function (err, rows, fields) {
-            if (err) throw err
-
-           // console.log('The solution is: ', rows[0].solution)
-            
-            callback(rows)
-
-        })
+            })
+            connection.on('error', function(err) {
+                console.log("[mysql error]",err);
+              });
        
+
+
     }
 
 

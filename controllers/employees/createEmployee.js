@@ -28,6 +28,10 @@ router.post('/', function (req, res, next) {
                 connection.release()
                 res.send(result)
             })
+            connection.on('error', function(err) {
+                console.log("[mysql error]",err);
+                res.send(err)
+              });
         });
     }
     catch (ex) {
