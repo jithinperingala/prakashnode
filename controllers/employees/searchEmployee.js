@@ -47,10 +47,10 @@ router.get('/empType', function (req, res, next) {
 
 
             })
-            connection.on('error', function(err) {
-                console.log("[mysql error]",err);
-                res.send(err)
-              });
+            // connection.on('error', function(err) {
+            //     console.log("[mysql error]",err);
+            //     res.send(err)
+            //   });
         });
     }
     catch (ex) {

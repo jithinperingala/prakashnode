@@ -21,10 +21,10 @@ module.exports = {
                 callback(rows)
 
             })
-            connection.on('error', function(err) {
-                callback(err)
-                console.log("[mysql error]",err);
-              });
+            // connection.on('error', function(err) {
+            //     callback(err)
+            //     console.log("[mysql error]",err);
+            //   });
        
 
 

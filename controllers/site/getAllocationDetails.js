@@ -11,11 +11,11 @@ router.get('/', function (req, res, next) {
         let sql = 'CALL GetEmployeetoAllocate("' + req.query.siteID + '","' + req.query.searchKey.replace(/[^0-9a-z]/gi, '') + '")'
         pool.getConnection(function (err, connection) {
             // don't forget to check error
-            connection.on('error', function(err) {
-                connection.release()
-                console.log("[mysql error]",err);
-                res.send(err)
-              });
+            // connection.on('error', function(err) {
+            //     connection.release()
+            //     console.log("[mysql error]",err);
+            //     res.send(err)
+            //   });
             connection.query(sql, function (err, rows, fields) {
                 if (err) throw err
 
