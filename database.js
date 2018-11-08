@@ -22,6 +22,7 @@ module.exports = {
 
             })
             connection.on('error', function(err) {
+                callback(err)
                 console.log("[mysql error]",err);
               });
        

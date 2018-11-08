@@ -14,6 +14,7 @@ router.get('/', function (req, res, next) {
             connection.on('error', function(err) {
                 connection.release()
                 console.log("[mysql error]",err);
+                res.send(err)
               });
             connection.query(sql, function (err, rows, fields) {
                 if (err) throw err
