@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 router.get('/attendenceByEmployee', function (req, res, next) {
     pool.getConnection(function (err, connection) {
         // don't forget to check error
-        let sql = 'CALL GetTotalAttendanceBySite("' + req.query.empId + '","' + req.query.fromDate + '","' + req.query.toDate + '")'
+        let sql = 'CALL GetEmployeeWiseAttandance("' + req.query.empId + '","' + req.query.fromDate + '","' + req.query.toDate + '")'
         connection.query(sql, function (err, rows, fields) {
             if (err) throw err
             connection.release()
