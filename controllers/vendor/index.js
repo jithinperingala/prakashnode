@@ -1,7 +1,8 @@
 var express = require('express')
   , router = express.Router()
-router.use('/employees', require('./employees/index'))
-router.use('/accounts', require('./accounts/index'))
+router.use('/condractor', require('./contractor'))
+router.use('/supplier', require('./supplier'))
+
 router.get('/', function (req, res) {
   res.render('index')
 })

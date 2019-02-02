@@ -33,7 +33,11 @@ router.get('/', function (req, res, next) {
       // don't forget to check error
       connection.query(sql, function (err, rows, fields) {
         if (err) throw err
+console.log(rows[0].length)
 
+if(rows[0].length==0){
+  res.send(rows[0])
+}
         rows[0].forEach((element, key) => {
           if (element.AttendanceDate)
             element.AttendanceDate = formatDate(element.AttendanceDate)

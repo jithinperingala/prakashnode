@@ -4,6 +4,8 @@ var express = require('express')
 router.use('/employee', require('./employees/index'))
 router.use('/validateUser', require('./login/index'))
 router.use('/site', require('./site/index'))
+router.use('/vendor', require('./vendor/index'))
+router.use('/accounts', require('./accounts/index'))
 router.use('/reports', require('./reports/index'))
 router.get('/', function(req, res) {
   res.render('index')
