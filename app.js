@@ -19,7 +19,7 @@ app.engine('jade', require('jade').__express)
 app.set('view engine', 'jade')
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,loggedUser, Accept");
   next();
 });
 app.use(express.static(__dirname + '/public'))

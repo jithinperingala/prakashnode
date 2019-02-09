@@ -31,80 +31,42 @@ router.get("/", function(req, res, next) {
 });
 router.post("/", function(req, res, next) {
   try {
-    console.log("bdy", req.body);
+    console.log("bdy", req.headers);
     var sqlQuery;
     if (req.body.createUpdate == "1")
       sqlQuery =
-        'CALL UpdateSupplier("' +
-        req.body.employee_id +
-        '","' +
-        req.body.empName +
-        '","' +
-        req.body.aadarNumber +
-        '","' +
-        req.body.empType +
-        '","' +
-        "asdasd" +
+        'CALL InsertSupplier("' +
+        req.body.name +
         '","' +
         req.body.address +
         '","' +
-        req.body.insuranceNumber +
+        req.body.contactNo +
         '","' +
-        req.body.contactno +
+        req.body.mobile +
         '","' +
         req.body.email +
         '","' +
-        req.body.officialNumber +
-        '","' +
-        req.body.dob +
-        '","' +
-        req.body.gender +
-        '","' +
         req.body.contactPerson +
         '","' +
-        req.body.contactPersonMobile +
-        '","' +
-        req.body.contactPesonRelation +
-        '","1","' +
-        req.body.wagesType +
-        '","' +
-        req.body.salaryAmount +
-        '","A+")';
+        req.headers.loggeduser +
+        '","2018/01/01")';
     else
       sqlQuery =
         'CALL InsertSupplier("' +
-        req.body.empName +
-        '",1,"' +
-        req.body.aadarNumber +
-        '","' +
-        req.body.empType +
-        '","' +
-        "asdasd" +
+        req.body.name +
         '","' +
         req.body.address +
         '","' +
-        req.body.insuranceNumber +
+        req.body.contactNo +
         '","' +
-        req.body.contactno +
+        req.body.mobile +
         '","' +
         req.body.email +
         '","' +
-        req.body.officialNumber +
-        '","' +
-        req.body.dob +
-        '","' +
-        req.body.gender +
-        '","' +
         req.body.contactPerson +
         '","' +
-        req.body.contactPersonMobile +
-        '","' +
-        req.body.contactPesonRelation +
-        '","1","' +
-        req.body.wagesType +
-        '","' +
-        req.body.salaryAmount +
-        '","0+")';
+        req.headers.loggeduser +
+        '","2018/01/01")';
     console.log(sqlQuery);
     pool.getConnection(function(err, connection) {
       connection.query(sqlQuery, function(err, result) {
