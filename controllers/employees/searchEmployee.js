@@ -4,13 +4,13 @@ var express = require("express"),
   db = require("../../database");
 
 // Define routes handling profile requests
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   console.log("jrp", req.query.key);
   try {
     let sql = 'CALL GetEmployee("' + req.query.key + '")';
-    pool.getConnection(function(err, connection) {
+    pool.getConnection(function (err, connection) {
       // don't forget to check error
-      connection.query(sql, function(err, rows, fields) {
+      connection.query(sql, function (err, rows, fields) {
         if (err) {
           throw err;
         } else {
@@ -25,7 +25,7 @@ router.get("/", function(req, res, next) {
     res.send(ex);
   }
 });
-router.get("/empType", function(req, res, next) {
+router.get("/empType", function (req, res, next) {
   try {
     let sql =
       'CALL SearchEmployee("' +
@@ -34,11 +34,11 @@ router.get("/empType", function(req, res, next) {
       req.query.key.replace(/[^0-9a-z]/gi, "") +
       '","' +
       req.query.userID +
-      '","0")';
+      '")';
     console.log("asdsad jitihin", sql);
-    pool.getConnection(function(err, connection) {
+    pool.getConnection(function (err, connection) {
       // don't forget to check error
-      connection.query(sql, function(err, rows, fields) {
+      connection.query(sql, function (err, rows, fields) {
         if (err) {
           //  throw err
         } else {
