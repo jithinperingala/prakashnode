@@ -33,52 +33,53 @@ router.post("/", function (req, res, next) {
   console.log("bank", req.body);
   try {
     console.log("bdy", req.body);
+    pool.getConnection(function (err, connection) {
+      for (var i = 0; i < req.body.data.length; i++) {
+        var sqlQuery;
+        if (req.body.createUpdate == "1")
+          sqlQuery =
+            'CALL InsertBankAccounts("' +
+            req.body.id +
+            '","' +
+            req.body.code +
+            '","' +
+            req.body.data[i].name +
+            '","' +
+            req.body.data[i].branch +
+            '","' +
+            req.body.data[i].ifsc +
+            '","' +
+            req.body.data[i].accNo +
+            '",0)';
+        else
+          sqlQuery =
+            'CALL InsertContractor("' +
+            req.body.id +
+            '","' +
+            req.body.code +
+            '","' +
+            req.body.data[i].name +
+            '","' +
+            req.body.data[i].branch +
+            '","' +
+            req.body.data[i].ifsc +
+            '","' +
+            req.body.data[i].accNo +
+            '",0)';
+        console.log(sqlQuery);
 
-    for (var i = 0; i < req.body.data.length; i++) {
-      var sqlQuery;
-      if (req.body.createUpdate == "1")
-        sqlQuery =
-          'CALL InsertBankAccounts("' +
-          req.body.id +
-          '","' +
-          req.body.code +
-          '","' +
-          req.body.data[i].name +
-          '","' +
-          req.body.data[i].branch +
-          '","' +
-          req.body.data[i].ifsc +
-          '","' +
-          req.body.data[i].accNo +
-          '",0)';
-      else
-        sqlQuery =
-          'CALL InsertContractor("' +
-          req.body.id +
-          '","' +
-          req.body.code +
-          '","' +
-          req.body.data[i].name +
-          '","' +
-          req.body.data[i].branch +
-          '","' +
-          req.body.data[i].ifsc +
-          '","' +
-          req.body.data[i].accNo +
-          '",0)';
-      console.log(sqlQuery);
-      pool.getConnection(function (err, connection) {
         connection.query(sqlQuery, function (err, result) {
           if (err) throw err;
-          connection.release();
+
           if (i == req.body.data.length - 1) {
+            connection.release();
             res.send(result);
           }
 
         });
-      });
-    }
 
+      }
+    });
   } catch (ex) {
     console.log(ex);
   }
