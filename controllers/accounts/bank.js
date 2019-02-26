@@ -84,4 +84,26 @@ router.post("/", function (req, res, next) {
     console.log(ex);
   }
 });
+router.get('/bankAccountDetails', function (req, res, next) {
+  try {
+    let sql = 'CALL GetBankAccountDetais("' + req.query.id + '","' + req.query.catogery + '")'
+    pool.getConnection(function (err, connection) {
+      // don't forget to check error
+
+      connection.query(sql, function (err, rows, fields) {
+        if (err) throw err
+
+        console.log('The solution is: ', rows[0].solution)
+        connection.release()
+
+        res.send(rows)
+      })
+
+    });
+  }
+  catch (ex) {
+    res.send(ex)
+  }
+
+});
 module.exports = router;
