@@ -29,12 +29,88 @@ router.get('/', function (req, res, next) {
 
 });
 router.post("/savePayment", function (req, res, next) {
+    console.log(req.body.payment.paymentType)
 
+    switch (req.body.payment.paymentType) {
+        case "fundTransfer":
+            queryString =
+                'CALL InsertEmployeeTransactions("' +
+                req.body.from.from +
+                '","' +
+                req.body.to.to +
+                '","' +
+                req.body.payment.amount +
+                '","' +
+                req.body.siteId +
+                '","' +
+                req.body.payment.cachTransferMode +
+                '","' +
+                req.body.from.fromAccount + '","' +
+                req.body.payment.date + '","' +
+                req.body.payment.description + '",0)';
+            break;
+        case "labourPayment":
+            break;
+        case "contractor":
+            queryString =
+                'CALL InsertContractorTransactions("' +
+                req.body.from.from +
+                '","' +
+                req.body.to.to +
+                '","' +
+                req.body.payment.amount +
+                '","' +
+                req.body.siteId +
+                '","' +
+                req.body.payment.cachTransferMode +
+                '","' +
+                req.body.from.fromAccount + '","' +
+                req.body.payment.date + '","' +
+                req.body.payment.description + '",0)';
+            break;
+        case "Supplier":
+            queryString =
+                'CALL InsertSupplierTransactions("' +
+                req.body.from.from +
+                '","' +
+                req.body.to.to +
+                '","' +
+                req.body.payment.amount +
+                '","' +
+                req.body.siteId +
+                '","' +
+                req.body.payment.cachTransferMode +
+                '","' +
+                req.body.from.fromAccount + '","' +
+                req.body.payment.date + '","' +
+                req.body.payment.description + '",0)';
+            break;
+        default:
+            throw ("invalid call")
+
+    }
+
+    console.log("bank", queryString);
+    try {
+        pool.getConnection(function (err, connection) {
+            // don't forget to check error
+
+            connection.query(queryString, function (err, rows, fields) {
+                if (err) throw err
+                connection.release()
+                res.send(rows)
+            })
+        });
+
+    } catch (ex) {
+        console.log(ex);
+    }
+});
+router.post("/savepettyCashPayment", function (req, res, next) {
+    console.log(req.body.payment)
     queryString =
-        'CALL InsertSupplierTransactions("' +
+        'CALL InsertPettyCashTransaction("' +
         req.body.from.from +
-        '","' +
-        req.body.to.to +
         '","' +
         req.body.payment.amount +
         '","' +
@@ -45,6 +121,7 @@ router.post("/savePayment", function (req, res, next) {
         req.body.from.fromAccount + '","' +
         req.body.payment.date + '","' +
         req.body.payment.description + '",0)';
+
     console.log("bank", queryString);
     try {
         pool.getConnection(function (err, connection) {
