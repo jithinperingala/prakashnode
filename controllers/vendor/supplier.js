@@ -3,7 +3,7 @@ var express = require("express"),
   router = express.Router();
 
 // Define routes handling profile requests
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   try {
     console.log("as", req.query.siteID);
     console.log("as", req.query.searchKey);
@@ -13,10 +13,10 @@ router.get("/", function(req, res, next) {
       '","' +
       req.query.searchKey.replace(/[^0-9a-z]/gi, "") +
       '")';
-    pool.getConnection(function(err, connection) {
+    pool.getConnection(function (err, connection) {
       // don't forget to check error
 
-      connection.query(sql, function(err, rows, fields) {
+      connection.query(sql, function (err, rows, fields) {
         if (err) throw err;
 
         console.log("The solution is: ", rows[0].solution);
@@ -29,7 +29,7 @@ router.get("/", function(req, res, next) {
     res.send(ex);
   }
 });
-router.post("/", function(req, res, next) {
+router.post("/", function (req, res, next) {
   try {
     console.log("bdy", req.headers);
     var sqlQuery;
@@ -68,8 +68,8 @@ router.post("/", function(req, res, next) {
         req.headers.loggeduser +
         '","2018/01/01")';
     console.log(sqlQuery);
-    pool.getConnection(function(err, connection) {
-      connection.query(sqlQuery, function(err, result) {
+    pool.getConnection(function (err, connection) {
+      connection.query(sqlQuery, function (err, result) {
         if (err) throw err;
         connection.release();
         res.send(result);
@@ -77,6 +77,8 @@ router.post("/", function(req, res, next) {
     });
   } catch (ex) {
     console.log(ex);
+    res.send(ex)
+
   }
 });
 module.exports = router;

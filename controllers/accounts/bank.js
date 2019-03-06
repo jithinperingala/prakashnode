@@ -53,7 +53,7 @@ router.post("/", function (req, res, next) {
             '",0)';
         else
           sqlQuery =
-            'CALL InsertContractor("' +
+            'CALL InsertBankAccounts("' +
             req.body.id +
             '","' +
             req.body.code +
@@ -70,8 +70,11 @@ router.post("/", function (req, res, next) {
 
         connection.query(sqlQuery, function (err, result) {
           if (err) throw err;
-
+          console.log("i", i)
+          console.log("length", req.body.data.length)
+          console.log("i===1", i == req.body.data.length - 1)
           if (i == req.body.data.length - 1) {
+            console.log("reached end")
             connection.release();
             res.send(result);
           }
@@ -86,7 +89,9 @@ router.post("/", function (req, res, next) {
 });
 router.get('/bankAccountDetails', function (req, res, next) {
   try {
+
     let sql = 'CALL GetBankAccountDetais("' + req.query.id + '","' + req.query.catogery + '")'
+    console.log(sql)
     pool.getConnection(function (err, connection) {
       // don't forget to check error
 
@@ -102,6 +107,7 @@ router.get('/bankAccountDetails', function (req, res, next) {
     });
   }
   catch (ex) {
+    next()
     res.send(ex)
   }
 

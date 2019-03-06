@@ -32,18 +32,22 @@ router.get('/toUser', function (req, res, next) {
             // don't forget to check error
 
             connection.query(sql, function (err, rows, fields) {
-                if (err) throw err
+                if (err) {
+                    next();
+                    throw err
+                }
 
                 console.log('The solution is: ', rows[0].solution)
                 connection.release()
-
+                next();
                 res.send(rows)
             })
 
         });
     }
     catch (ex) {
-        res.send(ex)
+        // res.send(ex)
+        next();
     }
 
 });

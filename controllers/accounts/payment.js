@@ -32,7 +32,7 @@ router.post("/savePayment", function (req, res, next) {
     console.log(req.body.payment.paymentType)
 
     switch (req.body.payment.paymentType) {
-        case "fundTransfer":
+        case "E":
             queryString =
                 'CALL InsertEmployeeTransactions("' +
                 req.body.from.from +
@@ -49,9 +49,9 @@ router.post("/savePayment", function (req, res, next) {
                 req.body.payment.date + '","' +
                 req.body.payment.description + '",0)';
             break;
-        case "labourPayment":
+        case "L":
             break;
-        case "contractor":
+        case "C":
             queryString =
                 'CALL InsertContractorTransactions("' +
                 req.body.from.from +
@@ -68,7 +68,7 @@ router.post("/savePayment", function (req, res, next) {
                 req.body.payment.date + '","' +
                 req.body.payment.description + '",0)';
             break;
-        case "Supplier":
+        case "S":
             queryString =
                 'CALL InsertSupplierTransactions("' +
                 req.body.from.from +
