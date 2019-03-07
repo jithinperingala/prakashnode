@@ -29,11 +29,11 @@ router.get("/", function (req, res, next) {
     res.send(ex);
   }
 });
-router.post("/", function (req, res, next) {
+router.post("/", async function (req, res, next) {
   console.log("bank", req.body);
   try {
     console.log("bdy", req.body);
-    pool.getConnection(function (err, connection) {
+    pool.getConnection(async function (err, connection) {
       for (var i = 0; i < req.body.data.length; i++) {
         var sqlQuery;
         if (req.body.createUpdate == "1")
@@ -68,19 +68,12 @@ router.post("/", function (req, res, next) {
             '",0)';
         console.log(sqlQuery);
 
-        connection.query(sqlQuery, function (err, result) {
-          if (err) throw err;
-          console.log("i", i)
-          console.log("length", req.body.data.length)
-          console.log("i===1", i == req.body.data.length - 1)
-          if (i == req.body.data.length - 1) {
-            console.log("reached end")
-            connection.release();
-            res.send(result);
-          }
-
-        });
-
+        let conres = await connection.query(sqlQuery);
+        if (i == req.body.data.length - 1) {
+          console.log("reached end")
+          connection.release();
+          res.send({ status: 0, str: "done" });
+        }
       }
     });
   } catch (ex) {
